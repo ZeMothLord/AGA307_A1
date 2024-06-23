@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +42,7 @@ public class EnemyManager : MonoBehaviour
         //Loop from 0 until the length of our spawnPoints array
         for(int i = 0; i < spawnPoints.Length; i++)
         {
-            int rNum = Random.Range(0, enemyTypes.Length);
+            int rNum = UnityEngine.Random.Range(0, enemyTypes.Length);
             GameObject enemy = Instantiate(enemyTypes[rNum], spawnPoints[i].position, spawnPoints[i].rotation);
             //adds the newly created enemy to enemie list
             enemies.Add(enemy);
