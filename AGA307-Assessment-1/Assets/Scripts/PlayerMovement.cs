@@ -19,9 +19,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("--- Projectile Settings ---")]
     public Transform projectileSpawn;
-    public GameObject projectilePrefab;
+    public GameObject[] projectilePrefabs;
     public float projectileSpeed = 15f;
     public int projectileLifeTime = 2;
+    public int currentWeapon = 0;
 
     [Header("--- Ray Casting ---")]
     public int rayDistance = 10;
@@ -62,18 +63,27 @@ public class PlayerMovement : MonoBehaviour
         {
             Shoot();
         }
-
-        void Shoot()
-        {
-            GameObject proj = Instantiate(projectilePrefab, projectileSpawn.position, projectileSpawn.rotation);
-            //porj velocity
-            proj.GetComponent<Rigidbody>().velocity = projectileSpawn.forward * projectileSpeed;
-            Destroy(proj, projectileLifeTime);
-        }
-
-
-
+        ChangeWeapon();
     }
+
+    void Shoot()
+    {
+        GameObject proj = Instantiate(projectilePrefabs[currentWeapon], projectileSpawn.position, projectileSpawn.rotation);
+        //porj velocity
+        proj.GetComponent<Rigidbody>().velocity = projectileSpawn.forward * projectileSpeed;
+        Destroy(proj, projectileLifeTime);
+    }
+
+    void ChangeWeapon()
+    {
+        if (Input.GetKeyDown("1"))
+            currentWeapon = 0;
+        else if (Input.GetKeyDown("2"))
+            currentWeapon = 1;
+        else if (Input.GetKeyDown("3"))
+            currentWeapon = 2;
+    }
+
 
     void OnTriggerStay(Collider other)
     {
