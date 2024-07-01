@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("--- Projectile Settings ---")]
     public Transform projectileSpawn;
     public GameObject[] projectilePrefabs;
-    public float projectileSpeed = 15f;
+    public float projectileSpeed = 100f;
     public int projectileLifeTime = 2;
     public int currentWeapon = 0;
 
@@ -77,11 +77,20 @@ public class PlayerMovement : MonoBehaviour
     void ChangeWeapon()
     {
         if (Input.GetKeyDown("1"))
+        {
             currentWeapon = 0;
+            projectileSpeed = 100f;
+        }
         else if (Input.GetKeyDown("2"))
+        {
             currentWeapon = 1;
+            projectileSpeed = 50f;
+        }
         else if (Input.GetKeyDown("3"))
+        {
             currentWeapon = 2;
+            projectileSpeed = 30f;
+        }
     }
 
 

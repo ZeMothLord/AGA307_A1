@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 using UnityEngine;
 
 
-public class TargetManager : MonoBehaviour
+public class TargetManager : Singleton<TargetManager>
 {
     public Transform[] targetspawnPoints = new Transform[3];
     public GameObject[] targetTypes = new GameObject[3];

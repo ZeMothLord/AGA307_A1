@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
 
     public Transform[] spawnPoints = new Transform[8];
@@ -17,15 +17,21 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameEvents.EnemyDie += EnemyDied;
         //set the size of the array to 
 
         PrintNums();
         SpawnEnemy();
         SumFist10NaturalNumbers();
         SumNaturalNumber(420);
+        ShuffleList(enemies);
     }
 
-    
+    private void OnDestroy()
+    {
+        GameEvents.EnemyDie -= EnemyDied;
+    }
+
 
     void PrintNums()
     {
@@ -94,6 +100,13 @@ public class EnemyManager : MonoBehaviour
     {
         FindClosestEnemyToPlayer();
     }
+
+    void EnemyDied(Enemy e)
+    {
+        enemies.Remove(e.gameObject);
+        Debug.Log(enemies.Count);
+    }
+
 }
 
 

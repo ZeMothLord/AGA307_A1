@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public EnemyTypes myType;
 
-    public int health;
+    public int health = 3;
 
     float moveDistance = 500;
 
@@ -17,15 +17,15 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Move());
     }
 
-    /*void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //temp remove later
+        if (Input.GetKeyDown(KeyCode.H)) 
         {
-            StartCoroutine(Move());
-
-        }   
+            Hit();
+        }
     }
-    */
+    
     IEnumerator Move()
     {
         for(int i = 0; i < moveDistance; i++)
@@ -56,17 +56,30 @@ public class Enemy : MonoBehaviour
         switch(myType) 
         {
             case EnemyTypes.OneHanded:
-                health = 100; 
+                health = 5; 
                 break;
             case EnemyTypes.TwoHanded: 
-                health = 200; 
+                health = 10; 
                 break;
             case EnemyTypes.Archer:
-                health = 50; 
+                health = 1; 
                 break;
         }
     }
 
+    void Hit()
+    {
+        GameEvents.OnEnemyHit(this);
+        health--;
+        if (health <= 0)
+            Die();
+    }
 
-
+    void Die()
+    {
+        GameEvents.OnEnemyDie(this);
+        StopAllCoroutines();
+        Destroy(this.gameObject);
+        
+    }
 }
