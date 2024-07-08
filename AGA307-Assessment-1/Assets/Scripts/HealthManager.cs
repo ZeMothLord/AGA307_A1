@@ -32,6 +32,7 @@ public class HealthManager : MonoBehaviour
 
     void Die()
     {
+        GameManager.timeRemaining += 5;
         Destroy(gameObject);
     }
 
